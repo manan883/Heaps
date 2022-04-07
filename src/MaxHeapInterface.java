@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
    An interface for the ADT maxheap.
    
@@ -31,4 +34,11 @@ public interface MaxHeapInterface<T extends Comparable<? super T>>
 
    /** Removes all entries from this heap. */
    public void clear();
+   	
+   public void buildHeapSI() throws IOException;
+
+   public void removeHeapSI() throws IOException;
+
+   public void writeToFile(String content) throws IOException;
+
 } // end MaxHeapInterface

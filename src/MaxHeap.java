@@ -1,4 +1,14 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Scanner;
 /**
    A class that implements the ADT maxheap by using an array.
  
@@ -12,8 +22,9 @@ public final class MaxHeap<T extends Comparable<? super T>>
    private T[] heap;      // Array of heap entries; ignore heap[0]
    private int lastIndex; // Index of last entry and number of entries
    private boolean integrityOK = false;
-	private static final int DEFAULT_CAPACITY = 25;
-	private static final int MAX_CAPACITY = 10000;
+   private static final int DEFAULT_CAPACITY = 25;
+   private static final int MAX_CAPACITY = 10000;
+   private int numberOfSwaps;
    
    public MaxHeap()
    {
@@ -61,6 +72,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
 	      heap[newIndex] = heap[parentIndex];
 	      newIndex = parentIndex;
 	      parentIndex = newIndex / 2;
+	      numberOfSwaps++;
 	   } // end while
 
 	   heap[newIndex] = newEntry;
@@ -166,5 +178,43 @@ public final class MaxHeap<T extends Comparable<? super T>>
 	       throw new IllegalStateException("Attempt to create a heap whose capacity exceeds " +
 	                                       "allowed maximum of " + MAX_CAPACITY);
 	} // end checkCapacity
+	
+	
+	// * * * PROJECT 4 CODE STARTS HERE * * *
+	
+	public void buildHeapSI() throws IOException {
+		Path path = Paths.get("output.txt");
+		Files.delete(path);
+		
+		String result = "";
+		for(int i = 1; i <= 10; i++) {
+			   result = result + heap[i] + ",";
+		   }
+		writeToFile("=====================================================================");
+		writeToFile("Heap built using sequential insertions: " + result + "...");
+		writeToFile("Number of swaps in the heap creation: " + numberOfSwaps);
+	}
+		
+	public void removeHeapSI() throws IOException {
+		for(int i = 0; i < 10; i++) {
+			this.removeMax();
+		}
+		
+		String result = "";
+		for(int i = 1; i <= 10; i++) {
+			   result = result + heap[i] + ",";
+		}
+		
+		writeToFile("Heap after 10 removals: " + result + "...");
+		writeToFile("");
+	}
+	
+	public void writeToFile(String content) throws IOException {
+		try(FileWriter fw = new FileWriter("output.txt", true);
+		    BufferedWriter bw = new BufferedWriter(fw);
+		    PrintWriter out = new PrintWriter(bw)) {
+			out.println(content);
+		}
+	}
 	
 } // end MaxHeap
