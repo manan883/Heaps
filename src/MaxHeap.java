@@ -215,15 +215,6 @@ public final class MaxHeap<T extends Comparable<? super T>>
 	}
 	
 	public void buildHeapOM(T[] array) throws IOException {
-
-		// Copy given array to data field
-	      for (int index = 0; index < array.length; index++) {
-	       heap[index + 1] = array[index];
-	      }
-	      // Create heap
-	      for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--)
-	         reheap(rootIndex);
-	      
 	      String result = "";
 			for(int i = 1; i <= 10; i++) {
 				   result = result + heap[i] + ",";
@@ -231,6 +222,20 @@ public final class MaxHeap<T extends Comparable<? super T>>
 			
 	      writeToFile("Heap built using optimal method: " + result + "...");
 	      writeToFile("Number of swaps in the heap creation: " + numberOfSwapsOM/2);
+	}
+	
+	public void removeHeapOM() throws IOException {
+		for(int i = 0; i < 10; i++) {
+			this.removeMax();
+		}
+		
+		String result = "";
+		for(int i = 1; i <= 10; i++) {
+			   result = result + heap[i] + ",";
+		}
+		
+		writeToFile("Heap after 10 removals: " + result + "...");
+		writeToFile("=====================================================================");
 	}
 	
 	public void writeToFile(String content) throws IOException {

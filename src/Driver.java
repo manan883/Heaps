@@ -25,13 +25,12 @@ public class Driver {
 		int index = 0;
 		while (scanner2.hasNextInt()) {
 			tempArray[index] = scanner2.nextInt();
-			System.out.println(tempArray[index]);
 			index++;
 		}
 		index = 0;
 		MaxHeap<Integer> maxHeapOM = new MaxHeap<>(tempArray);
 		maxHeapOM.buildHeapOM(tempArray);
-		
+		maxHeapOM.removeHeapOM();
 	}
 	
 }

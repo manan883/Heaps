@@ -41,6 +41,8 @@ public interface MaxHeapInterface<T extends Comparable<? super T>>
 
    public void buildHeapOM(T[] array) throws IOException;
 
+   public void removeHeapOM() throws IOException;
+
    public void writeToFile(String content) throws IOException;
 
 } // end MaxHeapInterface
