@@ -6,16 +6,32 @@ public class Driver {
 
 	public static void main(String[] args) throws IOException {
 		sequentialInsertions("data_sorted.txt");
+		optimalMethod("data_sorted.txt");
 	}
 	
 	public static void sequentialInsertions(String filepath) throws IOException {
-		MaxHeap<Integer> maxHeap = new MaxHeap<>();
+		MaxHeap<Integer> maxHeapSI = new MaxHeap<>();
 		Scanner scanner = new Scanner(new File(filepath));
 		while (scanner.hasNextInt()) {
-			maxHeap.add(scanner.nextInt());
+			maxHeapSI.add(scanner.nextInt());
 		}
-		maxHeap.buildHeapSI();
-		maxHeap.removeHeapSI();
+		maxHeapSI.buildHeapSI();
+		maxHeapSI.removeHeapSI();
+	}
+	
+	public static void optimalMethod(String filepath) throws IOException {
+		Integer[] tempArray = new Integer[100];
+		Scanner scanner2 = new Scanner(new File(filepath));
+		int index = 0;
+		while (scanner2.hasNextInt()) {
+			tempArray[index] = scanner2.nextInt();
+			System.out.println(tempArray[index]);
+			index++;
+		}
+		index = 0;
+		MaxHeap<Integer> maxHeapOM = new MaxHeap<>(tempArray);
+		maxHeapOM.buildHeapOM(tempArray);
+		
 	}
 	
 }

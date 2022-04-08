@@ -24,7 +24,8 @@ public final class MaxHeap<T extends Comparable<? super T>>
    private boolean integrityOK = false;
    private static final int DEFAULT_CAPACITY = 25;
    private static final int MAX_CAPACITY = 10000;
-   private int numberOfSwaps;
+   private int numberOfSwapsSI;
+   private int numberOfSwapsOM;
    
    public MaxHeap()
    {
@@ -46,7 +47,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
       lastIndex = 0;
       integrityOK = true;
    } // end constructor
-
+   
    public MaxHeap(T[] entries)
    {
       this(entries.length); // Call other constructor
@@ -58,8 +59,10 @@ public final class MaxHeap<T extends Comparable<? super T>>
          heap[index + 1] = entries[index];
 
       // Create heap
-      for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--)
-         reheap(rootIndex);
+      for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--) {
+    	  reheap(rootIndex);
+      }
+         
    } // end constructor
    
    public void add(T newEntry)
@@ -72,7 +75,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
 	      heap[newIndex] = heap[parentIndex];
 	      newIndex = parentIndex;
 	      parentIndex = newIndex / 2;
-	      numberOfSwaps++;
+	      numberOfSwapsSI++;
 	   } // end while
 
 	   heap[newIndex] = newEntry;
@@ -150,6 +153,8 @@ public final class MaxHeap<T extends Comparable<? super T>>
             heap[rootIndex] = heap[largerChildIndex];
             rootIndex = largerChildIndex;
             leftChildIndex = 2 * rootIndex;
+         	numberOfSwapsOM++;
+
          }
          else
             done = true;
@@ -192,7 +197,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
 		   }
 		writeToFile("=====================================================================");
 		writeToFile("Heap built using sequential insertions: " + result + "...");
-		writeToFile("Number of swaps in the heap creation: " + numberOfSwaps);
+		writeToFile("Number of swaps in the heap creation: " + numberOfSwapsSI);
 	}
 		
 	public void removeHeapSI() throws IOException {
@@ -207,6 +212,25 @@ public final class MaxHeap<T extends Comparable<? super T>>
 		
 		writeToFile("Heap after 10 removals: " + result + "...");
 		writeToFile("");
+	}
+	
+	public void buildHeapOM(T[] array) throws IOException {
+
+		// Copy given array to data field
+	      for (int index = 0; index < array.length; index++) {
+	       heap[index + 1] = array[index];
+	      }
+	      // Create heap
+	      for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--)
+	         reheap(rootIndex);
+	      
+	      String result = "";
+			for(int i = 1; i <= 10; i++) {
+				   result = result + heap[i] + ",";
+			}
+			
+	      writeToFile("Heap built using optimal method: " + result + "...");
+	      writeToFile("Number of swaps in the heap creation: " + numberOfSwapsOM/2);
 	}
 	
 	public void writeToFile(String content) throws IOException {
