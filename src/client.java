@@ -10,7 +10,7 @@ interface heap<T extends Comparable<? super T>>{
 }
 
 class client<T> {
-	class heapMethods<T extends Comparable<? super T>>  implements heap{
+	static class heapMethods<T extends Comparable<? super T>>  implements heap{
 		T heap[];
 		int lastIndex = 0;
 		private boolean integrityOK = false;
@@ -158,11 +158,12 @@ class client<T> {
 		      lastIndex = 0;
 	}
 	}
-protected static ArrayList<Integer> heap = new ArrayList<Integer>();
+protected static ArrayList<Integer> heapArr = new ArrayList<Integer>();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		readFileSetArr();
+		sequential();
 	}
 	static void readFileSetArr() {
 		System.out.println("Enter the file name you want to use. Default file name is 'data_random.txt'. Enter nothing and press enter to use default");
@@ -177,7 +178,7 @@ protected static ArrayList<Integer> heap = new ArrayList<Integer>();
 			Scanner reader = new Scanner(data);
 			while(reader.hasNextLine()) {
 				int temp = Integer.parseInt(reader.nextLine());
-				heap.add(temp);
+				heapArr.add(temp);
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -189,28 +190,19 @@ protected static ArrayList<Integer> heap = new ArrayList<Integer>();
 		
 		
 	}
-	static void findRoot(int arr[],int n, int i) {
-		 int largest = i; // Initialize largest as root
-	        int l = 2 * i + 1; // left = 2*i + 1
-	        int r = 2 * i + 2; // right = 2*i + 2
-	 
-	        // If left child is larger than root
-	        if (l < n && arr[l] > arr[largest])
-	            largest = l;
-	 
-	        // If right child is larger than largest so far
-	        if (r < n && arr[r] > arr[largest])
-	            largest = r;
-	 
-	        // If largest is not root
-	        if (largest != i) {
-	            int swap = arr[i];
-	            arr[i] = arr[largest];
-	            arr[largest] = swap;
-	 
-	            // Recursively heapify the affected sub-tree
-	            findRoot(arr, n, largest);
-	        }
+	static void sequential() {
+		heapMethods h = new heapMethods(heapArr.size());
+		for(int i = 0; i < heapArr.size(); i++) {
+			h.add(heapArr.get(i));
+			System.out.println(h.heap[i]);
+		}
+		
+		
+		
+	}
+	
+	static void optimal() {
+		
 	}
 	
 	
@@ -220,7 +212,7 @@ protected static ArrayList<Integer> heap = new ArrayList<Integer>();
 
 
 	
-}
+}//end client
 
 	
 
