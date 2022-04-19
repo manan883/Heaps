@@ -154,7 +154,6 @@ public final class MaxHeap<T extends Comparable<? super T>>
             rootIndex = largerChildIndex;
             leftChildIndex = 2 * rootIndex;
          	numberOfSwapsOM++;
-
          }
          else
             done = true;
@@ -187,10 +186,9 @@ public final class MaxHeap<T extends Comparable<? super T>>
 	
 	// * * * PROJECT 4 CODE STARTS HERE * * *
 	
-	public void buildHeapSI() throws IOException {
-		Path path = Paths.get("output.txt");
-		Files.delete(path);
+	public void processHeapSI() throws IOException {
 		
+		// Stores the first 10 values in the heap into a string that is used to write to a file
 		String result = "";
 		for(int i = 1; i <= 10; i++) {
 			   result = result + heap[i] + ",";
@@ -198,52 +196,50 @@ public final class MaxHeap<T extends Comparable<? super T>>
 		writeToFile("=====================================================================");
 		writeToFile("Heap built using sequential insertions: " + result + "...");
 		writeToFile("Number of swaps in the heap creation: " + numberOfSwapsSI);
-	}
 		
-	public void removeHeapSI() throws IOException {
+		// Removes 10 elements from the heap
 		for(int i = 0; i < 10; i++) {
 			this.removeMax();
 		}
 		
-		String result = "";
+		// Resets the result string and stores the new first 10 values in the heap into a string that is used to write a file
+		result = "";
 		for(int i = 1; i <= 10; i++) {
 			   result = result + heap[i] + ",";
 		}
-		
 		writeToFile("Heap after 10 removals: " + result + "...");
 		writeToFile("");
-	}
+	} // end processHeapSI
 	
-	public void buildHeapOM(T[] array) throws IOException {
+	public void processHeapOM() throws IOException {
+		
+		  // Stores the first 10 values in the heap into a string that is used to write to a file
 	      String result = "";
 			for(int i = 1; i <= 10; i++) {
 				   result = result + heap[i] + ",";
 			}
-			
 	      writeToFile("Heap built using optimal method: " + result + "...");
-	      writeToFile("Number of swaps in the heap creation: " + numberOfSwapsOM/2);
-	}
-	
-	public void removeHeapOM() throws IOException {
-		for(int i = 0; i < 10; i++) {
-			this.removeMax();
-		}
-		
-		String result = "";
-		for(int i = 1; i <= 10; i++) {
-			   result = result + heap[i] + ",";
-		}
-		
-		writeToFile("Heap after 10 removals: " + result + "...");
-		writeToFile("=====================================================================");
-	}
+	      writeToFile("Number of swaps in the heap creation: " + numberOfSwapsOM);
+	      
+		  // Removes 10 elements from the heap
+	      for(int i = 0; i < 10; i++) {
+				this.removeMax();
+			}
+			
+			// Resets the result string and stores the new first 10 values in the heap into a string that is used to write a file
+			result = "";
+			for(int i = 1; i <= 10; i++) {
+				   result = result + heap[i] + ",";
+			}
+			writeToFile("Heap after 10 removals: " + result + "...");
+			writeToFile("=====================================================================");
+	} // end processHeapOM
 	
 	public void writeToFile(String content) throws IOException {
-		try(FileWriter fw = new FileWriter("output.txt", true);
-		    BufferedWriter bw = new BufferedWriter(fw);
-		    PrintWriter out = new PrintWriter(bw)) {
-			out.println(content);
+	    try (BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt", true))) {
+			bw.write(content);
+			bw.write("\n");
 		}
-	}
+	} // end writeToFile
 	
 } // end MaxHeap

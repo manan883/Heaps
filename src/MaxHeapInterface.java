@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -34,15 +33,21 @@ public interface MaxHeapInterface<T extends Comparable<? super T>>
 
    /** Removes all entries from this heap. */
    public void clear();
-   	
-   public void buildHeapSI() throws IOException;
+   
+   /** Builds a heap using sequential insertions and counts the number of swaps,
+    *  then removes 10 elements from the heap
+    *  */
+   public void processHeapSI() throws IOException;
 
-   public void removeHeapSI() throws IOException;
+   /** Builds a heap using optimal method and counts the number of swaps,
+    *  then removes 10 elements from the heap 
+    * @param Array that includes all of the read integers from a file
+    */
+   public void processHeapOM() throws IOException;
 
-   public void buildHeapOM(T[] array) throws IOException;
-
-   public void removeHeapOM() throws IOException;
-
+   /** Writes the inputted string into a .txt file
+    * @param String that contains what is needed to be written on the file
+    */
    public void writeToFile(String content) throws IOException;
 
 } // end MaxHeapInterface
