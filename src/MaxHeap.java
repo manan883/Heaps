@@ -233,12 +233,13 @@ public final class MaxHeap<T extends Comparable<? super T>>
 			}
 			writeToFile("Heap after 10 removals: " + result + "...");
 			writeToFile("=====================================================================");
+			writeToFile("");
 	} // end processHeapOM
 	
 	public void writeToFile(String content) throws IOException {
-	    try (BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt", true))) {
-			bw.write(content);
-			bw.write("\n");
+	    FileWriter fw = new FileWriter("output.txt", true);
+	    try (PrintWriter pw = new PrintWriter(fw)) {
+			pw.println(content);
 		}
 	} // end writeToFile
 	

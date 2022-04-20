@@ -15,6 +15,9 @@ public class Driver {
 		// Calls the two methods that build a max-heap in different ways
 		sequentialInsertions("data_sorted.txt");
 		optimalMethod("data_sorted.txt");
+		
+		sequentialInsertions("data_random.txt");
+		optimalMethod("data_random.txt");
 	}
 	
 	// Sets up the heap and calls two methods used to create/modify the heap with sequential instructions
